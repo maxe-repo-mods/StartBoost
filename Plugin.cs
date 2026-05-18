@@ -81,7 +81,7 @@ public class Plugin : BaseUnityPlugin
 
         ExtraBatteries = Config.Bind("Items", "ExtraBatteries", 0,
             new ConfigDescription(
-                "Number of extra batteries (charging station charges) added at run start.",
+                "Extra power crystals added at run start (determines charging station capacity).",
                 new AcceptableValueRange<int>(0, 20)));
 
         UpgradeHealth = Config.Bind("Upgrades", "Health", 0,

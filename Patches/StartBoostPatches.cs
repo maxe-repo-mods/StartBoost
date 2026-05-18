@@ -48,14 +48,28 @@ public static class StartBoostPatches
             Plugin.Logger.LogInfo($"StartBoost: Starting currency set to {extraCurrency}");
         }
 
-        // Extra charging station charges (battery)
+        // Extra power crystals (charging station capacity is based on purchased crystal count)
         int extraBatteries = Plugin.ExtraBatteries.Value;
         if (extraBatteries > 0)
         {
-            int baseCharge = StatsManager.instance.runStats.ContainsKey("chargingStationCharge")
-                ? StatsManager.instance.runStats["chargingStationCharge"] : 1;
-            StatsManager.instance.runStats["chargingStationCharge"] = baseCharge + extraBatteries;
-            Plugin.Logger.LogInfo($"StartBoost: Charging station charges {baseCharge} -> {baseCharge + extraBatteries}");
+            string crystalKey = "Item Power Crystal";
+            if (!StatsManager.instance.itemsPurchased.ContainsKey(crystalKey))
+                StatsManager.instance.itemsPurchased[crystalKey] = 0;
+            if (!StatsManager.instance.itemsPurchasedTotal.ContainsKey(crystalKey))
+                StatsManager.instance.itemsPurchasedTotal[crystalKey] = 0;
+
+            StatsManager.instance.itemsPurchased[crystalKey] += extraBatteries;
+            StatsManager.instance.itemsPurchasedTotal[crystalKey] += extraBatteries;
+
+            // Also set chargeTotal so the station has capacity for the crystals
+            int newTotal = StatsManager.instance.itemsPurchased[crystalKey] * 10;
+            StatsManager.instance.runStats["chargingStationChargeTotal"] =
+                Mathf.Max(StatsManager.instance.runStats.ContainsKey("chargingStationChargeTotal")
+                    ? StatsManager.instance.runStats["chargingStationChargeTotal"] : 100, newTotal);
+
+            Plugin.Logger.LogInfo($"StartBoost: Added {extraBatteries} power crystals " +
+                $"(purchased: {StatsManager.instance.itemsPurchased[crystalKey]}, " +
+                $"chargeTotal: {StatsManager.instance.runStats["chargingStationChargeTotal"]})");
         }
 
         Plugin.Logger.LogInfo("StartBoost: ResetProgress postfix done.");
