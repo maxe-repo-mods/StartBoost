@@ -1,0 +1,9 @@
+{
+    "name": "StartBoost",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/max-enterme/repo-mods",
+    "description": "Customize run start: set starting level, currency, extra carts, and player upgrades (health, stamina, speed, etc).",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}
