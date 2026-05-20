@@ -10,7 +10,7 @@ public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "maxenterme.StartBoost";
     private const string PluginName = "StartBoost";
-    private const string PluginVersion = "2.0.2";
+    private const string PluginVersion = "2.0.3";
 
     internal static Plugin Instance { get; private set; } = null!;
     internal new static ManualLogSource Logger => Instance._logger;

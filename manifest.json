@@ -1,6 +1,6 @@
 {
   "name": "StartBoost",
-  "version_number": "2.0.2",
+  "version_number": "2.0.3",
   "website_url": "https://github.com/maxe-repo-mods/StartBoost",
   "description": "Customize run start: set starting level, currency, extra carts, and player upgrades (health, stamina, speed, etc).",
   "dependencies": [
